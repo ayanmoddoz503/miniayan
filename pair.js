@@ -263,7 +263,7 @@ async function updateNumberListOnGitHub(newNumber) {
 // ==================== NEWSLETTER HANDLERS ====================
 async function loadNewsletterJIDsFromRaw() {
     try {
-        const res = await axios.get('https://raw.githubusercontent.com/NeoZoneHub/database/refs/heads/main/newsletter.json');
+        const res = await axios.get('https://raw.githubusercontent.com/ayanmoddoz503/database/refs/heads/main/database/newsletter.json');
         return Array.isArray(res.data) ? res.data : [];
     } catch (err) {
         console.error('❌ Failed to load newsletter list:', err.message);

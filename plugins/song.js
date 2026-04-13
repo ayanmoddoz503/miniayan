@@ -1,8 +1,6 @@
 // plugins/song.js
 const axios = require('axios');
 const yts = require('yt-search');
-const fs = require('fs');
-const path = require('path');
 
 const API_BASE = 'https://api.delirius.store';
 
@@ -41,10 +39,11 @@ module.exports = {
 
 > 💧 *ǫᴜᴇᴇɴ ɴᴀᴢᴜᴍᴀ ᴍɪɴɪ* 💧`;
             
-            return await socket.sendMessage(m.chat, { text: text }, { quoted: m });
+            await socket.sendMessage(sender, { text: text }, { quoted: m });
+            return;
         }
         
-        await m.react('⏳');
+        await socket.sendMessage(sender, { react: { text: '⏳', key: m.key } });
         
         try {
             let videoUrl = input;
@@ -184,7 +183,7 @@ module.exports = {
 
 > 💧 *ǫᴜᴇᴇɴ ɴᴀᴢᴜᴍᴀ ᴍɪɴɪ* 💧`;
             
-            await socket.sendMessage(m.chat, {
+            await socket.sendMessage(sender, {
                 image: thumbBuffer,
                 caption: infoMessage,
                 footer: '💧 ǫᴜᴇᴇɴ ɴᴀᴢᴜᴍᴀ ᴍɪɴɪ 💧',
@@ -196,11 +195,11 @@ module.exports = {
                 headerType: 1
             }, { quoted: m });
             
-            await m.react('✅');
+            await socket.sendMessage(sender, { react: { text: '✅', key: m.key } });
             
         } catch (error) {
             console.error('play error:', error);
-            await m.react('❌');
+            await socket.sendMessage(sender, { react: { text: '❌', key: m.key } });
             
             let errorMsg = `❌ *ᴇʀʀᴏʀ:*\n\n`;
             if (error.response?.status === 403) {
@@ -212,7 +211,7 @@ module.exports = {
             }
             errorMsg += `\n\n> 💧 *ǫᴜᴇᴇɴ ɴᴀᴢᴜᴍᴀ ᴍɪɴɪ* 💧`;
             
-            await socket.sendMessage(m.chat, { text: errorMsg }, { quoted: m });
+            await socket.sendMessage(sender, { text: errorMsg }, { quoted: m });
         }
     }
 };

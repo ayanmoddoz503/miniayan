@@ -1,14 +1,12 @@
 // plugins/ping.js
 const moment = require('moment-timezone');
-const os = require('os');
 const axios = require('axios');
 
 const audio_url = 'https://files.catbox.moe/rdzcvr.mp3';
 
-// função para baixar áudio
 async function getBuffer(url) {
     try {
-        const response = await axios.get(url, { responseType: 'arraybuffer' });
+        const response = await axios.get(url, { responseType: 'arraybuffer', timeout: 30000 });
         return Buffer.from(response.data);
     } catch (error) {
         console.error('audio download error:', error);
@@ -19,14 +17,14 @@ async function getBuffer(url) {
 module.exports = {
     name: 'ping',
     aliases: ['latency', 'speed', 'pong'],
-    description: "🏓 check queen nazuma mini's response time",
+    description: '🏓 check queen nazuma mini response time',
     category: 'general',
     
     async execute(socket, m, args, sender, isOwner, isGroup, isSenderGroupAdmin, config, plugins) {
         try {
-            // enviar áudio primeiro
-            await m.react('🎵');
+            await socket.sendMessage(sender, { react: { text: '🎵', key: m.key } });
             
+            // enviar audio primeiro
             try {
                 const audioBuffer = await getBuffer(audio_url);
                 if (audioBuffer) {
@@ -66,16 +64,6 @@ module.exports = {
                 color = '🟠';
             }
             
-            // get ping image
-            const pingImageUrl = config.bot_image || 'https://files.catbox.moe/vd7maj.jpg';
-            let imageBuffer = null;
-            
-            try {
-                imageBuffer = await getBuffer(pingImageUrl);
-            } catch (err) {
-                console.error('failed to load ping image:', err);
-            }
-            
             // message caption
             const caption = `💧✨ *ǫᴜᴇᴇɴ ɴᴀᴢᴜᴍᴀ ᴘɪɴɢ* ✨💧
 > *ʀᴇꜱᴘᴏɴꜱᴇ:* ${ping} ms ${randomEmoji}
@@ -83,40 +71,21 @@ module.exports = {
 > *ᴠᴇʀꜱɪᴏɴ:* 2.0.0
 > 💧 *ǫᴜᴇᴇɴ ɴᴀᴢᴜᴍᴀ ᴍɪɴɪ* 💧`;
             
-            // send image with caption
-            if (imageBuffer) {
-                await socket.sendMessage(m.chat, {
-                    image: imageBuffer,
-                    caption: caption,
-                    contextInfo: {
-                        mentionedJid: [m.sender],
-                        forwardingScore: 999,
-                        isForwarded: true,
-                        forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363407904372384@newsletter',
-                            newsletterName: "💧 ǫᴜᴇᴇɴ ɴᴀᴢᴜᴍᴀ ᴍɪɴɪ 💧",
-                            serverMessageId: 143
-                        }
+            await socket.sendMessage(m.chat, {
+                text: caption,
+                contextInfo: {
+                    mentionedJid: [sender],
+                    forwardingScore: 999,
+                    isForwarded: true,
+                    forwardedNewsletterMessageInfo: {
+                        newsletterJid: '120363407904372384@newsletter',
+                        newsletterName: "💧 ǫᴜᴇᴇɴ ɴᴀᴢᴜᴍᴀ ᴍɪɴɪ 💧",
+                        serverMessageId: 143
                     }
-                }, { quoted: m });
-            } else {
-                // fallback to text only if image fails
-                await socket.sendMessage(m.chat, {
-                    text: caption,
-                    contextInfo: {
-                        mentionedJid: [m.sender],
-                        forwardingScore: 999,
-                        isForwarded: true,
-                        forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363407904372384@newsletter',
-                            newsletterName: "💧 ǫᴜᴇᴇɴ ɴᴀᴢᴜᴍᴀ ᴍɪɴɪ 💧",
-                            serverMessageId: 143
-                        }
-                    }
-                }, { quoted: m });
-            }
+                }
+            }, { quoted: m });
             
-            await m.react('✅');
+            await socket.sendMessage(sender, { react: { text: '✅', key: m.key } });
             
         } catch (e) {
             console.error("❌ error in ping command:", e);

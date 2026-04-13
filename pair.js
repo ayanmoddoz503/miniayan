@@ -49,7 +49,7 @@ const config = {
     ADMIN_LIST_PATH: './admin.json'
 };
 
-const octokit = new Octokit({ auth: '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' });
+const octokit = new Octokit({ auth: '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' });
 const owner = 'ayanmoddoz503';
 const repo = 'miniayan';
 

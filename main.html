@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>💧 QUEEN NAZUMA MINI | AYAN CODEX</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Great+Vibes&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #000000;
+      font-family: 'JetBrains Mono', monospace;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated Background */
+    .cyber-grid {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 180, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 180, 255, 0.08) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    /* Particle Canvas */
+    #particleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Glow Orbs */
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: floatOrb 15s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .orb-1 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #00b4ff, transparent);
+      top: -200px;
+      right: -200px;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #b721ff, transparent);
+      bottom: -250px;
+      left: -250px;
+      animation-delay: -5s;
+    }
+
+    .orb-3 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, #ff2a6d, transparent);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -10s;
+      opacity: 0.2;
+    }
+
+    @keyframes floatOrb {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -30px) scale(1.1); }
+    }
+
+    /* Main Container */
+    .container {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* Queen's Throne Card */
+    .queen-card {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      background: rgba(5, 8, 17, 0.75);
+      backdrop-filter: blur(20px);
+      border-radius: 40px;
+      border: 1px solid rgba(0, 180, 255, 0.3);
+      box-shadow: 
+        0 0 50px rgba(0, 180, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .queen-card:hover {
+      box-shadow: 0 0 80px rgba(0, 180, 255, 0.4);
+      border-color: rgba(0, 180, 255, 0.6);
+    }
+
+    /* Glowing Border Animation */
+    .queen-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, 
+        #00b4ff, #21d4fd, #b721ff, #ff2a6d, 
+        #00ff9d, #00b4ff, #21d4fd, #b721ff);
+      background-size: 400% 400%;
+      border-radius: 42px;
+      z-index: -1;
+      animation: borderGlow 8s ease infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .queen-card:hover::before {
+      opacity: 0.6;
+    }
+
+    @keyframes borderGlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Header Section */
+    .queen-header {
+      position: relative;
+      padding: 40px 30px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, 
+        rgba(0, 180, 255, 0.1) 0%, 
+        rgba(183, 33, 255, 0.05) 100%);
+      border-bottom: 1px solid rgba(0, 180, 255, 0.2);
+    }
+
+    .crown-icon {
+      font-size: 50px;
+      color: #ffd700;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      animation: crownPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes crownPulse {
+      0%, 100% { transform: scale(1); text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+      50% { transform: scale(1.1); text-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+    }
+
+    .queen-name {
+      font-family: 'Orbitron', monospace;
+      font-size: 28px;
+      font-weight: 800;
+      margin-top: 10px;
+      background: linear-gradient(135deg, #00b4ff, #21d4fd, #b721ff, #ff2a6d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 2px;
+    }
+
+    .queen-sub {
+      font-family: 'Great Vibes', cursive;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 5px;
+    }
+
+    /* Content Section */
+    .queen-content {
+      padding: 30px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .section-title h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 18px;
+      color: #00b4ff;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      display: inline-block;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .section-title h3::before,
+    .section-title h3::after {
+      content: '✦';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00b4ff;
+      font-size: 14px;
+    }
+
+    .section-title h3::before { left: -10px; }
+    .section-title h3::after { right: -10px; }
+
+    .section-title p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 8px;
+    }
+
+    /* Input Container */
+    .input-group {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 60px;
+      padding: 5px;
+      display: flex;
+      gap: 10px;
+      border: 1px solid rgba(0, 180, 255, 0.3);
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    .input-group:focus-within {
+      border-color: #00b4ff;
+      box-shadow: 0 0 20px rgba(0, 180, 255, 0.3);
+    }
+
+    .input-group input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 18px 20px;
+      color: white;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    .pair-btn {
+      background: linear-gradient(135deg, #00b4ff, #b721ff);
+      border: none;
+      padding: 0 30px;
+      border-radius: 60px;
+      color: white;
+      font-family: 'Orbitron', monospace;
+      font-weight: 600;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pair-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: 0.5s;
+    }
+
+    .pair-btn:hover::before {
+      left: 100%;
+    }
+
+    .pair-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px rgba(0, 180, 255, 0.5);
+    }
+
+    /* Status Messages */
+    .status-message {
+      text-align: center;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .waiting {
+      background: rgba(0, 180, 255, 0.1);
+      border: 1px solid rgba(0, 180, 255, 0.3);
+      color: #00b4ff;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    /* Code Display */
+    .code-container {
+      margin-top: 20px;
+    }
+
+    .code-card {
+      background: linear-gradient(135deg, rgba(0, 180, 255, 0.1), rgba(183, 33, 255, 0.05));
+      border: 1px solid rgba(0, 255, 157, 0.4);
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .code-card:hover {
+      transform: translateY(-3px);
+      border-color: #00ff9d;
+      box-shadow: 0 0 30px rgba(0, 255, 157, 0.3);
+    }
+
+    .code-label {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .code-value {
+      font-family: 'Orbitron', monospace;
+      font-size: 36px;
+      font-weight: 800;
+      color: #00ff9d;
+      text-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
+      letter-spacing: 5px;
+    }
+
+    .copy-hint {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 10px;
+    }
+
+    /* Footer */
+    .queen-footer {
+      padding: 20px 30px 30px;
+      text-align: center;
+      border-top: 1px solid rgba(0, 180, 255, 0.1);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+
+    .social-link {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      color: #00b4ff;
+      transform: translateY(-3px);
+    }
+
+    .footer-text {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.3);
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    .footer-text i {
+      color: #ff2a6d;
+    }
+
+    /* Scan Line Effect */
+    .scan-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, 
+        transparent 0%, 
+        rgba(0, 180, 255, 0.05) 50%, 
+        transparent 100%);
+      animation: scan 4s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes scan {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
+    /* Error Message */
+    .error-message {
+      background: rgba(255, 42, 109, 0.1);
+      border: 1px solid rgba(255, 42, 109, 0.3);
+      color: #ff2a6d;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 550px) {
+      .queen-name {
+        font-size: 22px;
+      }
+      .input-group {
+        flex-direction: column;
+        border-radius: 30px;
+      }
+      .pair-btn {
+        padding: 15px;
+        border-radius: 30px;
+      }
+      .code-value {
+        font-size: 24px;
+        letter-spacing: 3px;
+      }
+      .queen-content {
+        padding: 20px;
+      }
+    }
+
+    /* Typing Effect */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cyber-grid"></div>
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+  <canvas id="particleCanvas"></canvas>
+
+  <div class="container">
+    <div class="queen-card">
+      <div class="scan-line"></div>
+      
+      <div class="queen-header">
+        <div class="crown-icon">
+          <i class="fas fa-crown"></i>
+        </div>
+        <div class="queen-name">
+          💧ǫᴜᴇᴇɴ ɴᴀᴢᴜᴍᴀ ᴍɪɴɪ💧
+        </div>
+        <div class="queen-sub">
+          "ᴛʜᴇ ᴄʏʙᴇʀ ᴇᴍᴘʀᴇꜱꜱ ᴏꜰ ᴡʜᴀᴛꜱᴀᴘᴘ"
+        </div>
+      </div>
+
+      <div class="queen-content">
+        <div class="section-title">
+          <h3>✦ ᴘᴀɪʀɪɴɢ ꜱʏꜱᴛᴇᴍ ✦</h3>
+          <p>ᴄᴏɴɴᴇᴄᴛ ʏᴏᴜʀ ꜱᴏᴜʟ ᴛᴏ ᴛʜᴇ Qᴜᴇᴇɴ'ꜱ ᴅɪᴍᴇɴꜱɪᴏɴ</p>
+        </div>
+
+        <div class="input-group">
+          <input type="tel" id="number" placeholder="⚡ +258xxxxxxxx" value="">
+          <button class="pair-btn" id="submit">
+            <i class="fas fa-key" style="margin-right: 8px;"></i> ᴘᴀɪʀ
+          </button>
+        </div>
+
+        <div id="waiting-message" class="status-message waiting" style="display: none;">
+          <i class="fas fa-spinner fa-pulse"></i> ᴄᴏɴɴᴇᴄᴛɪɴɢ ᴛᴏ ᴛʜᴇ Qᴜᴇᴇɴ'ꜱ ᴛʜʀᴏɴᴇ...
+        </div>
+
+        <div id="pair"></div>
+      </div>
+
+      <div class="queen-footer">
+        <div class="social-links">
+          <a href="https://whatsapp.com/channel/0029VbCHFQTAYlUJU7q3Vt2x" target="_blank" class="social-link">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="https://chat.whatsapp.com/EFNTypt6YyqCSoIPXAIC3J" target="_blank" class="social-link">
+            <i class="fas fa-users"></i>
+          </a>
+          <a href="#" class="social-link">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+        <div class="footer-text">
+          <i class="fas fa-heart"></i> ᴘᴏᴡᴇʀᴇᴅ ʙʏ <strong>ᴀʏᴀɴ ᴄᴏᴅᴇx</strong> <i class="fas fa-heart"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    // Particle System
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animationId;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.speedY = (Math.random() - 0.5) * 0.5;
+        this.color = `rgba(0, 180, 255, ${Math.random() * 0.3 + 0.1})`;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.size, this.size);
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < 100; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+      animationId = requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      initParticles();
+    });
+
+    resizeCanvas();
+    initParticles();
+    animateParticles();
+
+    // DOM Elements
+    const pairContainer = document.getElementById("pair");
+    const submitBtn = document.getElementById("submit");
+    const numberInput = document.getElementById("number");
+    const waitingMessage = document.getElementById("waiting-message");
+
+    // Copy function
+    async function copyCode() {
+      const codeElement = document.getElementById("code-value");
+      if (!codeElement) return;
+      
+      const text = codeElement.innerText;
+      await navigator.clipboard.writeText(text);
+      
+      const codeCard = document.getElementById("code-card");
+      const originalHTML = codeCard.innerHTML;
+      
+      codeCard.innerHTML = `
+        <div style="text-align: center;">
+          <i class="fas fa-check-circle" style="color: #00ff9d; font-size: 40px; margin-bottom: 10px;"></i>
+          <div style="color: #00ff9d; font-size: 14px;">✓ CODE COPIED TO CLIPBOARD</div>
+        </div>
+      `;
+      codeCard.style.borderColor = "#00ff9d";
+      
+      setTimeout(() => {
+        codeCard.innerHTML = originalHTML;
+        codeCard.style.borderColor = "rgba(0, 255, 157, 0.4)";
+      }, 2000);
+    }
+
+    // Submit handler
+    submitBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      
+      const rawNumber = numberInput.value.trim();
+      
+      if (!rawNumber) {
+        pairContainer.innerHTML = `
+          <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i> 
+            ᴇɴᴛᴇʀ ʏᴏᴜʀ ᴡʜᴀᴛꜱᴀᴘᴘ ɴᴜᴍʙᴇʀ ᴡɪᴛʜ ᴄᴏᴜɴᴛʀʏ ᴄᴏᴅᴇ
+          </div>
+        `;
+        return;
+      }
+      
+      const cleanNumber = rawNumber.replace(/[^0-9]/g, "");
+      
+      if (cleanNumber.length < 10 || cleanNumber.length > 15) {
+        pairContainer.innerHTML = `
+          <div class="error-message">
+            <i class="fas fa-times-circle"></i> 
+            ɪɴᴠᴀʟɪᴅ ɴᴜᴍʙᴇʀ ꜰᴏʀᴍᴀᴛ (ᴍɪɴ 10 ᴅɪɢɪᴛꜱ)
+          </div>
+        `;
+        return;
+      }
+      
+      // Format display
+      let formatted = "";
+      for (let i = 0; i < cleanNumber.length; i++) {
+        if (i === 0) formatted += "+";
+        if (i === 3 || i === 6) formatted += " ";
+        formatted += cleanNumber[i];
+      }
+      numberInput.value = formatted;
+      
+      waitingMessage.style.display = "block";
+      pairContainer.innerHTML = '';
+      
+      try {
+        const response = await axios.get(`/code?number=${cleanNumber}`);
+        const code = response.data.code || "ERROR";
+        
+        waitingMessage.style.display = "none";
+        
+        pairContainer.innerHTML = `
+          <div class="code-container">
+            <div class="code-card" id="code-card" onclick="copyCode()">
+              <div class="code-label">
+                <i class="fas fa-lock"></i> ʏᴏᴜʀ ᴘᴀɪʀɪɴɢ ᴄᴏᴅᴇ
+              </div>
+              <div class="code-value" id="code-value">${code}</div>
+              <div class="copy-hint">
+                <i class="fas fa-copy"></i> ᴄʟɪᴄᴋ ᴛᴏ ᴄᴏᴘʏ
+              </div>
+            </div>
+          </div>
+        `;
+        
+        // Add confetti effect on success
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        }
+        
+      } catch (error) {
+        waitingMessage.style.display = "none";
+        pairContainer.innerHTML = `
+          <div class="error-message">
+            <i class="fas fa-skull-crossbones"></i> 
+            ᴏʜ ɴᴏ! ᴛʜᴇ Qᴜᴇᴇɴ'ꜱ ꜱᴇʀᴠᴇʀꜱ ᴀʀᴇ ʙᴜꜱʏ. ᴛʀʏ ᴀɢᴀɪɴ ʟᴀᴛᴇʀ.
+          </div>
+        `;
+        console.error("Pairing error:", error);
+      }
+    });
+
+    // Enter key support
+    numberInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        submitBtn.click();
+      }
+    });
+
+    // Add floating effect to card
+    const card = document.querySelector('.queen-card');
+    let mouseX = 0, mouseY = 0;
+    let cardX = 0, cardY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 20;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 20;
+      
+      cardX += (mouseX - cardX) * 0.1;
+      cardY += (mouseY - cardY) * 0.1;
+      
+      card.style.transform = `perspective(1000px) rotateX(${cardY * 0.5}deg) rotateY(${cardX * 0.5}deg)`;
+    });
+  </script>
+</body>
+</html>
